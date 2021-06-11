@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "2doParcialPL_Demo/1.0.0": {
+        "runtime": {
+          "2doParcialPL_Demo.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "2doParcialPL_Demo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
