@@ -13,11 +13,105 @@ namespace _2doParcialPL_Demo
 			string[,] instruments = CargarInstruments();
 			int[,] pricestock = CargarPreciosStock();
 			string[] clasificacion = { "Marca", "Modelo", "SubModelo", "Precio", "Stock"};
-			do
-				ShowMenu();
-            while (Options(instruments, pricestock, clasificacion) != 5);
+
+			MainMenu(instruments, pricestock, clasificacion);     
 		}
-		static int Options(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		static void MainMenu(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		{
+			do
+			{
+				Console.Clear();
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.WriteLine("╔═════════════════════════════════════╗");
+				Console.WriteLine("║    Casa de Musica - Do Sostenido    ║");
+				Console.WriteLine("║                                     ║");
+				Console.WriteLine("║    1) Lista de productos            ║");
+				Console.WriteLine("║    2) Modificar registros           ║");
+				Console.WriteLine("║    3) Calculadora de precios        ║");
+				Console.WriteLine("║                                     ║");
+				Console.WriteLine("║    9) Salir                         ║");
+				Console.WriteLine("╚═════════════════════════════════════╝");
+				Console.ResetColor();
+			} while (ControlApp(instruments, pricestock, clasificacion) != 9);
+		}
+		static int ControlApp(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		{
+			int op;
+            int.TryParse(Console.ReadLine(), out op);
+
+            switch (op)
+			{
+				case 1:
+					Console.Clear();
+					ListProducts(instruments, pricestock, clasificacion);
+					break;
+				case 2 :
+					Console.Clear();
+					Console.WriteLine("Entro a 4 - EditProducts");
+					EditProducts(instruments, pricestock, clasificacion);
+					break;
+				case 3:
+					Console.Clear();
+					Console.WriteLine("Entro a 4 - PriceCalculator");
+					break;
+				case 9:
+					Console.Clear();
+					Exit(op);
+					break;
+
+				default:
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Error! Ingrese una opcion correcta.");
+					Console.ResetColor();
+					Console.ReadKey();
+					break;
+			}
+			return op;
+		}
+		static void ListProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		{
+			for (int i = 0; i < clasificacion.Length; i++)
+			{
+				Console.BackgroundColor = ConsoleColor.DarkCyan;
+				Console.Write($"|{clasificacion[i],-15}");
+				Console.ResetColor();
+			}
+			Console.WriteLine();
+			for (int fI = 0; fI < instruments.GetLength(0); fI++)
+			{
+				Console.Write("|");
+				for (int cI = 0; cI < instruments.GetLength(1); cI++)
+				{
+					Console.Write($"{instruments[fI, cI],-15}|");
+				}
+				for (int cP = 0; cP < pricestock.GetLength(1); cP++)
+				{
+					Console.Write($"{pricestock[fI, cP],-15}|");
+				}
+				Console.WriteLine();
+			}
+			Console.ReadKey();
+		}
+		static void EditProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		{
+			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Cyan;
+			Console.WriteLine("╔═════════════════════════════════════╗");
+			Console.WriteLine("║    Casa de Musica - Do Sostenido    ║");
+			Console.WriteLine("║        *Modificar Registros*        ║");
+			Console.WriteLine("║                                     ║");
+			Console.WriteLine("║    1) Restar 1 a stock              ║");
+			Console.WriteLine("║    2) Agregar productos             ║");
+			Console.WriteLine("║    3) Eliminar productos            ║");
+			Console.WriteLine("║    4) Modificar productos           ║");
+			Console.WriteLine("║                                     ║");
+			Console.WriteLine("║    8) Volver                        ║");
+			Console.WriteLine("║    9) Salir de la App               ║");
+			Console.WriteLine("╚═════════════════════════════════════╝");
+			Console.ResetColor();
+			ControlEditProducts(instruments, pricestock, clasificacion);
+		}
+		static int ControlEditProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
 		{
 			int op;
 			int.TryParse(Console.ReadLine(), out op);
@@ -26,48 +120,102 @@ namespace _2doParcialPL_Demo
 			{
 				case 1:
 					Console.Clear();
-					Console.WriteLine("Entro a 1 - ListProducts");
-					ListProducts(instruments, pricestock, clasificacion);
+					Console.WriteLine("Entro a 1 - Restar stock");
 					break;
 				case 2:
 					Console.Clear();
-					Console.WriteLine("Entro a 2 - AddProducts");
+					Console.WriteLine("Entro a 2 - Agregar Productos");
 					AddProducts(instruments, pricestock);
 					break;
 				case 3:
 					Console.Clear();
-					Console.WriteLine("Entro a 3 - DeleteProducts");
+					Console.WriteLine("Entro a 3 - Eliminar Productos");
+					DeleteProducts(instruments, pricestock);
 					break;
 				case 4:
 					Console.Clear();
-					Console.WriteLine("Entro a 4 - PriceCalculator");
+					Console.WriteLine("Entro a 4 - Modificar Productos");
 					break;
-				case 5:
+				case 8:
+					Console.Clear();
+					MainMenu(instruments, pricestock, clasificacion);
+					break;
+				case 9:
 					Console.Clear();
 					Exit(op);
 					break;
 
 				default:
-					Console.WriteLine("Error default");
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Error! Ingrese una opcion correcta.");
+					Console.ResetColor();
 					Console.ReadKey();
 					break;
 			}
 			return op;
 		}
-		static void ShowMenu()
+		static void AddProducts(string[,] instruments, int[,] pricestock)
 		{
-			Console.Clear();
-			Console.ForegroundColor = ConsoleColor.Cyan;
-			Console.WriteLine("╔═════════════════════════════════════╗");
-			Console.WriteLine("║    Casa de Musica - Do Sostenido    ║");
-			Console.WriteLine("║    1) Lista de productos            ║");
-			Console.WriteLine("║    2) Agregar productos             ║");
-			Console.WriteLine("║    3) Eliminar productos            ║");
-			Console.WriteLine("║    4) Calculadora de precios        ║");
-			Console.WriteLine("║    5) Salir                         ║");
-			Console.WriteLine("╚═════════════════════════════════════╝");
-			Console.ResetColor();
+			for (int fi = 0; fi < instruments.GetLength(0); fi++)
+			{
+				if (string.IsNullOrEmpty(instruments[fi, 0]))
+				{
+					for (int ci = 0; ci < instruments.GetLength(1); ci++)
+					{
+						switch (ci)
+						{
+							case 0:
+								Console.Clear();
+								Console.WriteLine("Ingrese Marca");
+								instruments[fi, ci] = ValStr();
+								break;
+							case 1:
+								Console.Clear();
+								Console.WriteLine("Ingrese Modelo");
+								instruments[fi, ci] = ValStr();
+								break;
+							case 2:
+								Console.Clear();
+								Console.WriteLine("Ingrese Submodelo");
+								instruments[fi, ci] = ValStr();
+								break;
+						}
+					}
+					break;
+				}
+			}
+			for (int fp = 0; fp < pricestock.GetLength(0); fp++)
+			{
+				if (pricestock[fp, 0] == 0)
+				{
+					for (int cp = 0; cp < instruments.GetLength(1); cp++)
+					{
+						switch (cp)
+						{
+							case 0:
+								Console.Clear();
+								Console.WriteLine("Ingrese Precio");
+								pricestock[fp, cp] = ValInt();
+								break;
+							case 1:
+								Console.Clear();
+								Console.WriteLine("Ingrese Stock");
+								pricestock[fp, cp] = ValInt();
+								break;
+						}
+					}
+					break;
+				}
+			}
 		}
+		static void DeleteProducts(string[,] instruments, int[,] pricestock)
+        {
+
+		}
+		static void Calculator()
+        {
+
+        }
 		static int ValInt()
 		{
 			int num;
@@ -78,7 +226,7 @@ namespace _2doParcialPL_Demo
 			while (!conv)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
-				Console.WriteLine("Error! ingrese un dato correcto:");
+				Console.WriteLine("Error! ingrese un dato valido:");
 				Console.ResetColor();
 				conv = int.TryParse(Console.ReadLine().Trim(), out num);
 			}
@@ -115,10 +263,10 @@ namespace _2doParcialPL_Demo
 
 			str = Console.ReadLine().Trim();
 
-			while (str.Any(char.IsDigit) || string.IsNullOrEmpty(str))
+			while (string.IsNullOrEmpty(str))
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
-				Console.WriteLine("Error! ingrese un dato correcto:");
+				Console.WriteLine("Error! ingrese un dato valido:");
 				Console.ResetColor();
 				str = Console.ReadLine().Trim();
 			}
@@ -156,91 +304,13 @@ namespace _2doParcialPL_Demo
 			val = Console.ReadLine().Trim().ToLower();
 			if (val == "s")
 			{
-				op = 5;
+				op = 6;
 			}
 			if (val == "n")
 			{
 				op = 0;
 			}
 			return op;
-		}
-		static void AddProducts(string[,] instruments, int[,] pricestock)
-		{
-            for (int fi = 0; fi < instruments.GetLength(0); fi++)
-            {
-                if (string.IsNullOrEmpty(instruments[fi, 0]))
-                {
-                    for (int ci = 0; ci < instruments.GetLength(1); ci++)
-                    {
-                        switch (ci)
-                        {
-							case 0:
-								Console.Clear();
-								Console.WriteLine("Ingrese Marca");
-								instruments[fi, ci] = ValStr();
-								break;
-							case 1:
-								Console.Clear();
-								Console.WriteLine("Ingrese Modelo");
-								instruments[fi, ci] = ValStr();
-								break;
-							case 2:
-								Console.Clear();
-								Console.WriteLine("Ingrese Submodelo");
-								instruments[fi, ci] = ValStr();
-								break;
-						}
-                    }
-					break;
-                }
-            }
-			for (int fp = 0; fp < pricestock.GetLength(0); fp++)
-			{
-				if (pricestock[fp, 0] == 0)
-				{
-					for (int cp = 0; cp < instruments.GetLength(1); cp++)
-					{
-						switch (cp)
-						{
-							case 0:
-								Console.Clear();
-								Console.WriteLine("Ingrese Precio");
-								pricestock[fp, cp] = ValInt();
-								break;
-							case 1:
-								Console.Clear();
-								Console.WriteLine("Ingrese Stock");
-								pricestock[fp, cp] = ValInt();
-								break;
-						}
-					}
-					break;
-				}
-			}
-		}
-		static void ListProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
-		{
-            for (int i = 0; i < clasificacion.Length; i++)
-            {
-				Console.BackgroundColor = ConsoleColor.DarkCyan;
-				Console.Write($"|{clasificacion[i],-15}");
-				Console.ResetColor();
-			}
-			Console.WriteLine();
-			for (int fI = 0; fI < instruments.GetLength(0); fI++)
-			{
-				Console.Write("|");
-				for (int cI = 0; cI < instruments.GetLength(1); cI++)
-				{
-					Console.Write($"{instruments[fI, cI],-15}|");
-				}
-				for (int cP = 0; cP < pricestock.GetLength(1); cP++)
-				{
-					Console.Write($"{pricestock[fI, cP],-15}|");
-				}
-				Console.WriteLine();
-			}			
-		Console.ReadKey();
 		}
 		static string[,] CargarInstruments()
         {
