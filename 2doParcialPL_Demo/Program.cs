@@ -48,7 +48,7 @@ namespace _2doParcialPL_Demo
 				case 2 :
 					Console.Clear();
 					Console.WriteLine("Entro a 4 - EditProducts");
-					EditProducts(instruments, pricestock, clasificacion);
+					EditProductsMenu(instruments, pricestock, clasificacion);
 					break;
 				case 3:
 					Console.Clear();
@@ -92,7 +92,7 @@ namespace _2doParcialPL_Demo
 			}
 			Console.ReadKey();
 		}
-		static void EditProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		static void EditProductsMenu(string[,] instruments, int[,] pricestock, string[] clasificacion)
 		{
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Cyan;
@@ -106,7 +106,6 @@ namespace _2doParcialPL_Demo
 			Console.WriteLine("║    4) Modificar productos           ║");
 			Console.WriteLine("║                                     ║");
 			Console.WriteLine("║    8) Volver                        ║");
-			Console.WriteLine("║    9) Salir de la App               ║");
 			Console.WriteLine("╚═════════════════════════════════════╝");
 			Console.ResetColor();
 			ControlEditProducts(instruments, pricestock, clasificacion);
@@ -138,11 +137,7 @@ namespace _2doParcialPL_Demo
 					break;
 				case 8:
 					Console.Clear();
-					MainMenu(instruments, pricestock, clasificacion);
-					break;
-				case 9:
-					Console.Clear();
-					Exit(op);
+					//MainMenu(instruments, pricestock, clasificacion);
 					break;
 
 				default:
@@ -302,14 +297,14 @@ namespace _2doParcialPL_Demo
 			string val;
 			Console.WriteLine("¿Esta seguro que desea salir? s/n");
 			val = Console.ReadLine().Trim().ToLower();
-			if (val == "s")
-			{
-				op = 6;
-			}
-			if (val == "n")
-			{
-				op = 0;
-			}
+				if (val == "s")
+				{
+					op = 9;
+				}
+				if (val == "n")
+				{
+					op = 0;
+				}
 			return op;
 		}
 		static string[,] CargarInstruments()
