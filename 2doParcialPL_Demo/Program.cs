@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 namespace _2doParcialPL_Demo
 {
 	class Program
-	{ 
+	{
 		static void Main(string[] args)
 		{
 			string[,] instruments = CargarInstruments();
 			int[,] pricestock = CargarPreciosStock();
-			string[] clasificacion = { "id", "Marca", "Modelo", "SubModelo", "Precio", "Stock"};
-			MainMenu(instruments, pricestock, clasificacion);     
+			string[] clasificacion = { "Id", "Marca", "Modelo", "SubModelo", "$ Lista", "Stock" };
+			string[] clasificacionInv = { "Id", "Marca", "Modelo", "SubMedelo", "$ Costo", "Total Stock" };
+			MainMenu(instruments, pricestock, clasificacion, clasificacionInv);     
 		}
-		static void MainMenu(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		static void MainMenu(string[,] instruments, int[,] pricestock, string[] clasificacion, string[] clasificacionInv)
 		{
 			do
 			{
@@ -31,9 +32,9 @@ namespace _2doParcialPL_Demo
 				Console.WriteLine("║    9) Salir                         ║");
 				Console.WriteLine("╚═════════════════════════════════════╝");
 				Console.ResetColor();
-			} while (ControlApp(instruments, pricestock, clasificacion) != 9);
+			} while (ControlApp(instruments, pricestock, clasificacion, clasificacionInv) != 9);
 		}
-		static int ControlApp(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		static int ControlApp(string[,] instruments, int[,] pricestock, string[] clasificacion, string[] clasificacionInv)
 		{
 			int op;
 			int.TryParse(Console.ReadLine(), out op);
@@ -51,7 +52,7 @@ namespace _2doParcialPL_Demo
 				case 3:
 					Console.Clear();
 					Console.WriteLine("Entro a 4 - PriceCalculator");
-					CalculatorMenu(pricestock);
+					CalculatorMenu(instruments, pricestock, clasificacionInv);
 					break;
 				case 9:
 					Console.Clear();
@@ -220,13 +221,13 @@ namespace _2doParcialPL_Demo
 			//Console.Clear();
 			//ListProducts(instruments, pricestock, clasificacion);
 		}
-		static void CalculatorMenu(int[,] pricestock)
+		static void CalculatorMenu(string[,] instruments, int[,] pricestock, string[] clasificacionInv)
 		{
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.WriteLine("╔═════════════════════════════════════╗");
 			Console.WriteLine("║    Casa de Musica - Do Sostenido    ║");
-			Console.WriteLine("║            *Calculadora*            ║");
+			Console.WriteLine("║            *Contabilidad*           ║");
 			Console.WriteLine("║                                     ║");
 			Console.WriteLine("║    1)             ║");
 			Console.WriteLine("║    2)             ║");
@@ -234,8 +235,9 @@ namespace _2doParcialPL_Demo
 			Console.WriteLine("║    8) Volver                        ║");
 			Console.WriteLine("╚═════════════════════════════════════╝");
 			Console.ResetColor();
+			ControlCalculator(instruments, pricestock, clasificacionInv);
 		}
-		static int ControlCalculator(int[,] preciostock)
+		static int ControlCalculator(string[,] instruments, int[,] pricestock, string[] clasificacionInv)
 		{
 			int op;
 			int.TryParse(Console.ReadLine(), out op);
@@ -244,11 +246,9 @@ namespace _2doParcialPL_Demo
 				{
 					case 1:
 						Console.Clear();
-						Console.WriteLine("Entro a 1 - ");
+						SumarPrecios(instruments, pricestock, clasificacionInv);
 						break;
 					case 2:
-						Console.Clear();
-						Console.WriteLine("Entro a 2 - ");
 						break;
 					case 8:
 						break;
@@ -262,6 +262,52 @@ namespace _2doParcialPL_Demo
 				}
 			return op;
 		}
+		static void SumarPrecios(string[,] instruments, int[,] pricestock, string[] clasificacionInv)
+		{
+			int resSumIns = 0;
+			int resSumStk = 0;
+
+
+				for (int fp = 0; fp < pricestock.GetLength(0); fp++)
+				{
+					resSumIns += pricestock[fp, 0];
+				}
+				for (int fp = 0; fp < pricestock.GetLength(0); fp++)
+				{
+					resSumStk += pricestock[fp,1];
+				}
+
+
+
+			// CUADRO
+				for (int c = 0; c < clasificacionInv.Length; c++)
+				{
+					Console.BackgroundColor = ConsoleColor.DarkGreen;
+					Console.Write($"|{clasificacionInv[c],-13}");
+					Console.ResetColor();
+				}
+				Console.WriteLine();
+				for (int fi = 0; fi < instruments.GetLength(0); fi++)
+				{
+					Console.Write("|");
+					for (int ci = 0; ci < instruments.GetLength(1); ci++)
+					{
+						Console.Write($"{instruments[fi, ci],-13}|");
+					}
+					for (int cp = 0; cp < pricestock.GetLength(1); cp++)
+					{
+						pricestock[cp, 0];
+						Console.Write($"{pricestock[fi, cp],-13}|");
+					}
+				Console.WriteLine();
+				}
+
+			Console.Write($"|{resSumIns,-13}");
+			Console.Write($"|{resSumStk,-13}");
+
+
+			Console.ReadKey();
+        }
 		static int ValInt()
 		{
 			int num;
