@@ -37,9 +37,9 @@ namespace _2doParcialPL_Demo
 		static int ControlApp(string[,] instruments, int[,] pricestock, string[] clasificacion)
 		{
 			int op;
-            int.TryParse(Console.ReadLine(), out op);
+			int.TryParse(Console.ReadLine(), out op);
 
-            switch (op)
+			switch (op)
 			{
 				case 1:
 					Console.Clear();
@@ -100,10 +100,9 @@ namespace _2doParcialPL_Demo
 			Console.WriteLine("║    Casa de Musica - Do Sostenido    ║");
 			Console.WriteLine("║        *Modificar Registros*        ║");
 			Console.WriteLine("║                                     ║");
-			Console.WriteLine("║    1) Restar 1 a stock              ║");
-			Console.WriteLine("║    2) Agregar productos             ║");
-			Console.WriteLine("║    3) Eliminar productos            ║");
-			Console.WriteLine("║    4) Modificar productos           ║");
+			Console.WriteLine("║    1) Agregar productos             ║");
+			Console.WriteLine("║    2) Eliminar productos            ║");
+			Console.WriteLine("║    3) Modificar productos           ║");
 			Console.WriteLine("║                                     ║");
 			Console.WriteLine("║    8) Volver                        ║");
 			Console.WriteLine("╚═════════════════════════════════════╝");
@@ -119,25 +118,19 @@ namespace _2doParcialPL_Demo
 			{
 				case 1:
 					Console.Clear();
-					Console.WriteLine("Entro a 1 - Restar stock");
+					Console.WriteLine("Entro a 1 - Agregar Productos");
+					AddProducts(instruments, pricestock);
 					break;
 				case 2:
 					Console.Clear();
-					Console.WriteLine("Entro a 2 - Agregar Productos");
-					AddProducts(instruments, pricestock);
+					Console.WriteLine("Entro a 2 - Eliminar Productos");
+					DeleteProducts(instruments, pricestock, clasificacion);
 					break;
 				case 3:
-					Console.Clear();
-					Console.WriteLine("Entro a 3 - Eliminar Productos");
-					DeleteProducts(instruments, pricestock);
-					break;
-				case 4:
 					Console.Clear();
 					Console.WriteLine("Entro a 4 - Modificar Productos");
 					break;
 				case 8:
-					Console.Clear();
-					//MainMenu(instruments, pricestock, clasificacion);
 					break;
 
 				default:
@@ -203,14 +196,45 @@ namespace _2doParcialPL_Demo
 				}
 			}
 		}
-		static void DeleteProducts(string[,] instruments, int[,] pricestock)
-        {
+		static void DeleteProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		{
+
+			ListProducts(instruments, pricestock, clasificacion);
+
+			Console.WriteLine("\nIngrese la marca del instrumento que desea eliminar:");
+
+			string elementtosearch = Console.ReadLine();
+
+			for (int fi = 0; fi < instruments.GetLength(0); fi++)
+			{
+				for (int ci = 0; ci < instruments.GetLength(1); ci++)
+				{
+					if (instruments[fi, ci] == elementtosearch)
+					{
+						instruments[fi, 0] = null;
+						instruments[fi, 1] = null;
+						instruments[fi, 2] = null;
+
+						for (int fp = 0; fp < pricestock.GetLength(0); fp++)
+						{
+							for (int cp = 0; cp < pricestock.GetLength(1); cp++)
+							{
+								pricestock[fi, 0] = 0;
+								pricestock[fi, 1] = 0;
+							}
+						}
+					}
+				}
+			}
+        }
+		static void ModifyProducts()
+		{
 
 		}
 		static void Calculator()
-        {
+		{
 
-        }
+		}
 		static int ValInt()
 		{
 			int num;
@@ -308,7 +332,7 @@ namespace _2doParcialPL_Demo
 			return op;
 		}
 		static string[,] CargarInstruments()
-        {
+		{
 			string[,] aux = new string[10, 3]
 			{
 				{ "Gibson", "Les Paul", "Studio 2013"},
@@ -323,7 +347,7 @@ namespace _2doParcialPL_Demo
 				{ "Squier", "Telecaster", "Custom"}
 			};
 			return aux;
-        }
+		}
 		static int[,] CargarPreciosStock()
 		{
 			int[,] aux = new int[10, 2]
