@@ -198,7 +198,6 @@ namespace _2doParcialPL_Demo
 		}
 		static void DeleteProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
 		{
-
 			ListProducts(instruments, pricestock, clasificacion);
 
 			Console.WriteLine("\nIngrese la marca del instrumento que desea eliminar:");
