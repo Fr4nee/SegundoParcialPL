@@ -8,15 +8,16 @@ namespace _2doParcialPL_Demo
 {
 	class Program
 	{
+		static string[,] instruments = CargarInstruments();
+		static int[,] pricestock = CargarPreciosStock();
+		static string[] clasificacion = CargarClas();
+		static string[] clasificacionInv = CargarClasInv();
+
 		static void Main(string[] args)
-		{
-			string[,] instruments = CargarInstruments();
-			int[,] pricestock = CargarPreciosStock();
-			string[] clasificacion = { "Id", "Marca", "Modelo", "SubModelo", "Precio Lista", "Stock" };
-			string[] clasificacionInv = { "Id", "Marca", "Modelo", "SubModelo", "Costo"};
-			MainMenu(instruments, pricestock, clasificacion, clasificacionInv);     
+		{	
+			MainMenu();     
 		}
-		static void MainMenu(string[,] instruments, int[,] pricestock, string[] clasificacion, string[] clasificacionInv)
+		static void MainMenu()
 		{
 			do
 			{
@@ -32,9 +33,9 @@ namespace _2doParcialPL_Demo
 				Console.WriteLine("║    9) Salir                         ║");
 				Console.WriteLine("╚═════════════════════════════════════╝");
 				Console.ResetColor();
-			} while (ControlApp(instruments, pricestock, clasificacion, clasificacionInv) != 9);
+			} while (ControlApp() != 9);
 		}
-		static int ControlApp(string[,] instruments, int[,] pricestock, string[] clasificacion, string[] clasificacionInv)
+		static int ControlApp()
 		{
 			int op;
 			int.TryParse(Console.ReadLine(), out op);
@@ -43,16 +44,16 @@ namespace _2doParcialPL_Demo
 			{
 				case 1:
 					Console.Clear();
-					ListProducts(instruments, pricestock, clasificacion);
+					ListProducts();
 					break;
 				case 2 :
 					Console.Clear();
-					EditProductsMenu(instruments, pricestock, clasificacion);
+					EditProductsMenu();
 					break;
 				case 3:
 					Console.Clear();
 					Console.WriteLine("Entro a 4 - PriceCalculator");
-					CalculatorMenu(instruments, pricestock, clasificacionInv);
+					CalculatorMenu();
 					break;
 				case 9:
 					Console.Clear();
@@ -68,7 +69,7 @@ namespace _2doParcialPL_Demo
 			}
 			return op;
 		}
-		static void ListProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		static void ListProducts()
 		{
 			for (int i = 0; i < clasificacion.Length; i++)
 			{
@@ -92,7 +93,7 @@ namespace _2doParcialPL_Demo
 			}
 			Console.ReadKey();
 		}
-		static void EditProductsMenu(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		static void EditProductsMenu()
 		{
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Cyan;
@@ -106,9 +107,9 @@ namespace _2doParcialPL_Demo
 			Console.WriteLine("║    8) Volver                        ║");
 			Console.WriteLine("╚═════════════════════════════════════╝");
 			Console.ResetColor();
-			ControlEditProducts(instruments, pricestock, clasificacion);
+			ControlEditProducts();
 		}
-		static int ControlEditProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		static int ControlEditProducts()
 		{
 			int op;
 			int.TryParse(Console.ReadLine(), out op);
@@ -117,11 +118,11 @@ namespace _2doParcialPL_Demo
 				{
 					case 1:
 						Console.Clear();
-						AddProducts(instruments, pricestock);
+						AddProducts();
 						break;
 					case 2:
 						Console.Clear();
-						DeleteProducts(instruments, pricestock, clasificacion);
+						DeleteProducts();
 						break;
 					case 8:
 						break;
@@ -135,7 +136,7 @@ namespace _2doParcialPL_Demo
 				}
 			return op;
 		}
-		static void AddProducts(string[,] instruments, int[,] pricestock)
+		static void AddProducts()
 		{
 			for (int fi = 0; fi < instruments.GetLength(0); fi++)
 			{
@@ -189,9 +190,9 @@ namespace _2doParcialPL_Demo
 				}
 			}
 		}
-		static void DeleteProducts(string[,] instruments, int[,] pricestock, string[] clasificacion)
+		static void DeleteProducts()
 		{
-			ListProducts(instruments, pricestock, clasificacion);
+			ListProducts();
 
 			Console.WriteLine("\nIngrese el ID del instrumento que desea eliminar:");
 
@@ -221,7 +222,7 @@ namespace _2doParcialPL_Demo
 			//Console.Clear();
 			//ListProducts(instruments, pricestock, clasificacion);
 		}
-		static void CalculatorMenu(string[,] instruments, int[,] pricestock, string[] clasificacionInv)
+		static void CalculatorMenu()
 		{
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Cyan;
@@ -235,9 +236,9 @@ namespace _2doParcialPL_Demo
 			Console.WriteLine("║    8) Volver                        ║");
 			Console.WriteLine("╚═════════════════════════════════════╝");
 			Console.ResetColor();
-			ControlCalculator(instruments, pricestock, clasificacionInv);
+			ControlCalculator();
 		}
-		static int ControlCalculator(string[,] instruments, int[,] pricestock, string[] clasificacionInv)
+		static int ControlCalculator()
 		{
 			int op;
 			int.TryParse(Console.ReadLine(), out op);
@@ -246,10 +247,10 @@ namespace _2doParcialPL_Demo
 				{
 					case 1:
 						Console.Clear();
-						PreciosCost(instruments, pricestock, clasificacionInv);
+						PreciosCost();
 						break;
 					case 2:
-						Info(instruments, pricestock);
+						Info();
 						break;
 					case 8:
 						break;
@@ -263,7 +264,7 @@ namespace _2doParcialPL_Demo
 				}
 			return op;
 		}
-		static void PreciosCost(string[,] instruments, int[,] pricestock, string[] clasificacionInv)
+		static void PreciosCost()
 		{
 			for (int c = 0; c < clasificacionInv.Length; c++)
 			{
@@ -287,7 +288,7 @@ namespace _2doParcialPL_Demo
 			}
 			Console.ReadKey();
         }
-		static void Info(string[,] instruments, int[,] pricestock)
+		static void Info()
         {
 			int resSumIns = 0;
 			int resSumStk = 0;
@@ -443,6 +444,16 @@ namespace _2doParcialPL_Demo
 			};
 			return aux;
 		}
+		static string[] CargarClas()
+        {
+			string[] aux = { "Id", "Marca", "Modelo", "SubModelo", "Precio Lista", "Stock" };
+			return aux;
+		}
+		static string[] CargarClasInv()
+        {
+			string[] aux = { "Id", "Marca", "Modelo", "SubModelo", "Costo" };
+			return aux;
+        }
 	} 
 }
 
