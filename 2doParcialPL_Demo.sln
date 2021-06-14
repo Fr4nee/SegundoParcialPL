@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2doParcialPL_Demo", "2doParcialPL_Demo\2doParcialPL_Demo.csproj", "{9B8DB7C6-4B21-4738-8F6B-A228D2FE0FD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase09-06", "Clase09-06\Clase09-06.csproj", "{9E04D75F-C0A9-4AB3-B7B5-602C62F73179}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{9B8DB7C6-4B21-4738-8F6B-A228D2FE0FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B8DB7C6-4B21-4738-8F6B-A228D2FE0FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B8DB7C6-4B21-4738-8F6B-A228D2FE0FD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E04D75F-C0A9-4AB3-B7B5-602C62F73179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E04D75F-C0A9-4AB3-B7B5-602C62F73179}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E04D75F-C0A9-4AB3-B7B5-602C62F73179}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E04D75F-C0A9-4AB3-B7B5-602C62F73179}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
