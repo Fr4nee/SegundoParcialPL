@@ -26,11 +26,12 @@ namespace _2doParcialPL_Demo
 				Console.WriteLine("╔═════════════════════════════════════╗");
 				Console.WriteLine("║    Casa de Musica - Do Sostenido    ║");
 				Console.WriteLine("║                                     ║");
-				Console.WriteLine("║    1) Inventario y Precios          ║");
-				Console.WriteLine("║    2) Modificar registros           ║");
-				Console.WriteLine("║    3) Contabilidad                  ║");
+				Console.WriteLine("║    1) Inventario y Precios.         ║");
+				Console.WriteLine("║    2) Modificar registros.          ║");
+				Console.WriteLine("║    3) Contabilidad.                 ║");
+				Console.WriteLine("║    4) Resgistrar Venta.             ║");
 				Console.WriteLine("║                                     ║");
-				Console.WriteLine("║    9) Salir                         ║");
+				Console.WriteLine("║    9) Salir.                        ║");
 				Console.WriteLine("╚═════════════════════════════════════╝");
 				Console.ResetColor();
 			} while (ControlApp() != 9);
@@ -52,8 +53,11 @@ namespace _2doParcialPL_Demo
 					break;
 				case 3:
 					Console.Clear();
-					Console.WriteLine("Entro a 4 - PriceCalculator");
 					CalculatorMenu();
+					break;
+				case 4:
+					Console.Clear();
+					RegVenta();
 					break;
 				case 9:
 					Console.Clear();
@@ -148,17 +152,17 @@ namespace _2doParcialPL_Demo
 						{
 							case 1:
 								Console.Clear();
-								Console.WriteLine("Ingrese Marca");
+								Console.WriteLine("Ingrese Marca:");
 								instruments[fi, ci] = ValStr();
 								break;
 							case 2:
 								Console.Clear();
-								Console.WriteLine("Ingrese Modelo");
+								Console.WriteLine("Ingrese Modelo:");
 								instruments[fi, ci] = ValStr();
 								break;
 							case 3:
 								Console.Clear();
-								Console.WriteLine("Ingrese Submodelo");
+								Console.WriteLine("Ingrese Submodelo:");
 								instruments[fi, ci] = ValStr();
 								break;
 						}
@@ -176,12 +180,12 @@ namespace _2doParcialPL_Demo
 						{
 							case 0:
 								Console.Clear();
-								Console.WriteLine("Ingrese Precio");
+								Console.WriteLine("Ingrese Precio de Lista:");
 								pricestock[fp, cp] = ValInt();
 								break;
 							case 1:
 								Console.Clear();
-								Console.WriteLine("Ingrese Stock");
+								Console.WriteLine("Ingrese Stock:");
 								pricestock[fp, cp] = ValInt();
 								break;
 						}
@@ -219,8 +223,34 @@ namespace _2doParcialPL_Demo
 						}
 					}
 				}
-			//Console.Clear();
-			//ListProducts(instruments, pricestock, clasificacion);
+		}
+		static void RegVenta()
+        {
+			string id;
+			int cant;
+			ListProducts();
+			Console.WriteLine("\nIngrese el ID del instrumento: ");
+			id = ValStr();
+			Console.WriteLine("Ingrese la cantidad de unidades vendidas: ");
+			cant = ValInt();
+			Console.Clear();
+
+				for (int fi = 0; fi < instruments.GetLength(0); fi++)
+				{
+					for (int ci = 0; ci < instruments.GetLength(1); ci++)
+					{
+						if (instruments[fi, ci] == id)
+						{
+							for (int cp = 1; cp < pricestock.GetLength(1); cp++)
+							{
+								pricestock[fi, 1] = pricestock[fi, 1] - cant;
+							}						
+						}
+					}
+				}
+
+			Console.Clear();
+			ListProducts();
 		}
 		static void CalculatorMenu()
 		{
@@ -303,8 +333,6 @@ namespace _2doParcialPL_Demo
 				cos = (fac) * 0.7;
 				gan = fac - cos;
 			}
-			Console.WriteLine(resSumIns);
-			Console.WriteLine(resSumStk);
 			Console.BackgroundColor = ConsoleColor.DarkMagenta;
 			Console.WriteLine("\n\n La ganancia por cada instrumento es del +30%.");
 			Console.WriteLine($" Nro de instrumentos en deposito: {resSumStk}.");
@@ -431,7 +459,7 @@ namespace _2doParcialPL_Demo
 		{
 			int[,] aux = new int[10, 2]
 			{
-				{ 1050, 5},
+				{ 1050, 5}, 
 				{ 365, 20},
 				{ 0, 0},
 				{ 420, 2},
