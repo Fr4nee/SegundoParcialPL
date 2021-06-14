@@ -11,3 +11,16 @@ C:\Users\Franco\Desktop\ISTEA\Programacion Logica\Segundo parcial\2doParcialPL_D
 C:\Users\Franco\Desktop\ISTEA\Programacion Logica\Segundo parcial\2doParcialPL_Demo\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.dll
 C:\Users\Franco\Desktop\ISTEA\Programacion Logica\Segundo parcial\2doParcialPL_Demo\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.pdb
 C:\Users\Franco\Desktop\ISTEA\Programacion Logica\Segundo parcial\2doParcialPL_Demo\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.genruntimeconfig.cache
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\bin\Debug\netcoreapp3.1\2doParcialPL_Demo.exe
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\bin\Debug\netcoreapp3.1\2doParcialPL_Demo.deps.json
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\bin\Debug\netcoreapp3.1\2doParcialPL_Demo.runtimeconfig.json
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\bin\Debug\netcoreapp3.1\2doParcialPL_Demo.runtimeconfig.dev.json
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\bin\Debug\netcoreapp3.1\2doParcialPL_Demo.dll
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\bin\Debug\netcoreapp3.1\2doParcialPL_Demo.pdb
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.csproj.AssemblyReference.cache
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.AssemblyInfoInputs.cache
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.AssemblyInfo.cs
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.csproj.CoreCompileInputs.cache
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.dll
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.pdb
+C:\Users\rocio\Desktop\2doParcialPL\2doParcialPL_Demo\obj\Debug\netcoreapp3.1\2doParcialPL_Demo.genruntimeconfig.cache
