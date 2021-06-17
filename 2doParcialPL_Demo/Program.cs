@@ -508,16 +508,16 @@ namespace _2doParcialPL_Demo
 		{
 			string[,] aux = new string[10, 4]
 			{
-						{"1", "Gibson", "Les Paul", "Studio 2013" },
-						{"2", "Epiphone", "SG", "G-310" },
-						{"3",  null, null, null },
-						{"4", "Washburn", "KC44V", "FloydRose" },
-						{"5",  null, null, null },
-						{"6", "SX", "Les Paul", "Black" },
-						{"7", "Rockman", "Stratocaster", "2009" },
-						{"8", "Dean", "Dave Mustaine", "VMNTX" },
-						{"9", null, null, null },
-						{"10", "Squier", "Telecaster", "Custom" }
+				{"1", "Gibson", "Les Paul", "Studio 2013" },
+				{"2", "Epiphone", "SG", "G-310" },
+				{"3",  null, null, null },
+				{"4", "Washburn", "KC44V", "FloydRose" },
+				{"5",  null, null, null },
+				{"6", "SX", "Les Paul", "Black" },
+				{"7", "Rockman", "Stratocaster", "2009" },
+				{"8", "Dean", "Dave Mustaine", "VMNTX" },
+				{"9", null, null, null },
+				{"10", "Squier", "Telecaster", "Custom" }
 			};
 			return aux;
 		}
@@ -529,16 +529,16 @@ namespace _2doParcialPL_Demo
 		{
 			int[,] aux = new int[10, 2]
 			{
-						{ 1050, 5},
-						{ 365, 20},
-						{ 0, 0},
-						{ 420, 2},
-						{ 0, 0},
-						{ 260, 10},
-						{ 200, 15},
-						{ 890, 8},
-						{ 0, 0},
-						{ 500, 18}
+				{ 1050, 5},
+				{ 365, 20},
+				{ 0, 0},
+				{ 420, 2},
+				{ 0, 0},
+				{ 260, 10},
+				{ 200, 15},
+				{ 890, 8},
+				{ 0, 0},
+				{ 500, 18}
 			};
 			return aux;
 		}
