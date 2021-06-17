@@ -412,25 +412,27 @@ namespace _2doParcialPL_Demo
 			Console.WriteLine($"Ingreso '{num}' ¿es correcto? s/n");
 			val = Console.ReadLine();
 
-			while (val == "n")
-			{
-				Console.WriteLine("Vuelva a ingresar el dato:");
-				int.TryParse(Console.ReadLine().Trim(), out num);
-				Console.WriteLine($"Ingreso '{num}' ¿es correcto? s/n");
-				val = Console.ReadLine().Trim().ToLower();
-			}
-			while (val.Any(char.IsDigit) || string.IsNullOrEmpty(val))
+			while (val.Any(char.IsDigit) || string.IsNullOrEmpty(val) || val != "s")
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("Error!!! Ingrese s/n");
 				Console.ResetColor();
 				val = Console.ReadLine().Trim().ToLower();
+
+				while (val == "n")
+				{
+					Console.WriteLine("Vuelva a ingresar el dato:");
+					int.TryParse(Console.ReadLine().Trim(), out num);
+					Console.WriteLine($"ingreso '{num}' ¿es correcto? s/n");
+					val = Console.ReadLine().Trim().ToLower();
+				}
 			}
 			if (val == "s")
 			{
 				Console.ForegroundColor = ConsoleColor.Green;
 				Console.WriteLine("Hecho!");
 				Console.ResetColor();
+				Console.ReadKey();
 			}
 			return num;
 		}
@@ -456,27 +458,29 @@ namespace _2doParcialPL_Demo
 			Console.WriteLine($"Ingreso '{str}' ¿es correcto? s/n");
 			val = Console.ReadLine();
 
-			while (val == "n")
-			{
-				Console.WriteLine("Vuelva a ingresar el dato:");
-				str = Console.ReadLine().Trim();
-				Console.WriteLine($"ingreso '{str}' ¿es correcto? s/n");
-				val = Console.ReadLine().Trim().ToLower();
-			}
-			while (val.Any(char.IsDigit) || string.IsNullOrEmpty(val))
+			while (val.Any(char.IsDigit) || string.IsNullOrEmpty(val) || val != "s")
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("Error!!! Ingrese s/n");
 				Console.ResetColor();
 				val = Console.ReadLine().Trim().ToLower();
+
+				while (val == "n")
+				{
+					Console.WriteLine("Vuelva a ingresar el dato:");
+					str = Console.ReadLine().Trim();
+					Console.WriteLine($"ingreso '{str}' ¿es correcto? s/n");
+					val = Console.ReadLine().Trim().ToLower();
+				}
 			}
 			if (val == "s")
 			{
 				Console.ForegroundColor = ConsoleColor.Green;
 				Console.WriteLine("Hecho!");
-				Console.ReadKey();
 				Console.ResetColor();
+				Console.ReadKey();
 			}
+
 			return str;
 		}
 		/// <summary>
