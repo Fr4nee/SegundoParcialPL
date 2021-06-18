@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Linq;
-namespace _2doParcialPL_Demo
+
+namespace Segundo_Parcial
 {
 	class Program
 	{
-		static Program()
-		{ }
-		public static string[,] instruments = CargarInstruments();
-		public static int[,] pricestock = CargarPreciosStock();
-		public static string[] clasificacion = CargarClas();
-		public static string[] clasificacionInv = CargarClasInv();
-		public static double[] facArray = new double[10];
+		public static string[,] instruments = LoadInstruments();
+		public static int[,] priceStock = LoadPriceStock();
+		public static string[] hRetailer = LoadHeaderRetailer();
+		public static string[] hWholesaler = LoadHeaderWholesaler();
+		public static double[] totalBilling = Info();
 
 		static void Main(string[] args)
 		{
 			MainMenu();
 		}
+
 		/// <summary>
 		/// Dibuja el menu principal.
 		/// </summary>
@@ -38,16 +38,17 @@ namespace _2doParcialPL_Demo
 				Console.ResetColor();
 			} while (ControlApp() != 9);
 		}
+
 		/// <summary>
 		/// Le da funcionamiento al Menu principal, utilizando opciones numericas.
 		/// </summary>
-		/// <returns> Retorna 'op'. Variable que indica que opciones en el Menu Principal </returns>
+		/// <returns> Retorna 'opt'. Variable que indica que opciones en el Menu Principal </returns>
 		static int ControlApp()
 		{
-			int op;
-			int.TryParse(Console.ReadLine(), out op);
+			int opt;
+			int.TryParse(Console.ReadLine(), out opt);
 
-			switch (op)
+			switch (opt)
 			{
 				case 1:
 					Console.Clear();
@@ -59,15 +60,15 @@ namespace _2doParcialPL_Demo
 					break;
 				case 3:
 					Console.Clear();
-					CalculatorMenu();
+					AccountingMenu();
 					break;
 				case 4:
 					Console.Clear();
-					RegVenta();
+					RegSale();
 					break;
 				case 9:
 					Console.Clear();
-					Exit(op);
+					Exit(opt);
 					break;
 
 				default:
@@ -77,17 +78,18 @@ namespace _2doParcialPL_Demo
 					Console.ReadKey();
 					break;
 			}
-			return op;
+			return opt;
 		}
+
 		/// <summary>
-		/// Dibuja la lista de productos standard.
+		/// Dibuja el listado de productos con precios minoristas.
 		/// </summary>
 		static void ListProducts()
 		{
-			for (int i = 0; i < clasificacion.Length; i++)
+			for (int i = 0; i < hRetailer.Length; i++)
 			{
 				Console.BackgroundColor = ConsoleColor.DarkCyan;
-				Console.Write($"|{clasificacion[i],-13}");
+				Console.Write($"|{hRetailer[i],-13}");
 				Console.ResetColor();
 			}
 			Console.WriteLine();
@@ -98,16 +100,17 @@ namespace _2doParcialPL_Demo
 				{
 					Console.Write($"{instruments[fi, ci],-13}|");
 				}
-				for (int cp = 0; cp < pricestock.GetLength(1); cp++)
+				for (int cp = 0; cp < priceStock.GetLength(1); cp++)
 				{
-					Console.Write($"{pricestock[fi, cp],-13}|");
+					Console.Write($"{priceStock[fi, cp],-13}|");
 				}
 				Console.WriteLine();
 			}
 			Console.ReadKey();
 		}
+
 		/// <summary>
-		/// Dibuja el Menu que edita la lista de productos.
+		/// Dibuja el Menu para editar el listado de productos.
 		/// </summary>
 		static void EditProductsMenu()
 		{
@@ -125,16 +128,17 @@ namespace _2doParcialPL_Demo
 			Console.ResetColor();
 			ControlEditProducts();
 		}
+
 		/// <summary>
-		/// Controla el Menu que edita la lista de productos.
+		/// Controla el Menu para editar el listado de productos.
 		/// </summary>
-		/// <returns> Retorna 'op'. Variable que indica que opciones en el Menu que edita la lista de productos</returns>
+		/// <returns> Retorna 'opt'. Variable que indica que opciones en el Menu que edita el listado de productos</returns>
 		static int ControlEditProducts()
 		{
-			int op;
-			int.TryParse(Console.ReadLine(), out op);
+			int opt;
+			int.TryParse(Console.ReadLine(), out opt);
 
-			switch (op)
+			switch (opt)
 			{
 				case 1:
 					Console.Clear();
@@ -154,10 +158,11 @@ namespace _2doParcialPL_Demo
 					Console.ReadKey();
 					break;
 			}
-			return op;
+			return opt;
 		}
+
 		/// <summary>
-		/// Agrega productos a la lista.
+		/// Agrega productos al listado.
 		/// </summary>
 		static void AddProducts()
 		{
@@ -171,17 +176,17 @@ namespace _2doParcialPL_Demo
 						{
 							case 1:
 								Console.Clear();
-								Console.WriteLine("Ingrese Marca:");
+								Console.WriteLine("Ingrese Marca del Instrumento:");
 								instruments[fi, ci] = ValStr();
 								break;
 							case 2:
 								Console.Clear();
-								Console.WriteLine("Ingrese Modelo:");
+								Console.WriteLine("Ingrese Modelo del Instrumento:");
 								instruments[fi, ci] = ValStr();
 								break;
 							case 3:
 								Console.Clear();
-								Console.WriteLine("Ingrese Submodelo:");
+								Console.WriteLine("Ingrese Submodelo del Instrumento:");
 								instruments[fi, ci] = ValStr();
 								break;
 						}
@@ -189,9 +194,9 @@ namespace _2doParcialPL_Demo
 					break;
 				}
 			}
-			for (int fp = 0; fp < pricestock.GetLength(0); fp++)
+			for (int fp = 0; fp < priceStock.GetLength(0); fp++)
 			{
-				if (pricestock[fp, 0] == 0)
+				if (priceStock[fp, 0] == 0)
 				{
 					for (int cp = 0; cp < instruments.GetLength(1); cp++)
 					{
@@ -199,13 +204,13 @@ namespace _2doParcialPL_Demo
 						{
 							case 0:
 								Console.Clear();
-								Console.WriteLine("Ingrese Precio de Lista:");
-								pricestock[fp, cp] = ValInt();
+								Console.WriteLine("Ingrese el Precio de Lista del Instrumento:");
+								priceStock[fp, cp] = ValInt();
 								break;
 							case 1:
 								Console.Clear();
-								Console.WriteLine("Ingrese Stock:");
-								pricestock[fp, cp] = ValInt();
+								Console.WriteLine("Ingrese la cantidad de unidades en Stock:");
+								priceStock[fp, cp] = ValInt();
 								break;
 						}
 					}
@@ -213,8 +218,9 @@ namespace _2doParcialPL_Demo
 				}
 			}
 		}
+
 		/// <summary>
-		/// Borra productos de la lista.
+		/// Borra productos del listado.
 		/// </summary>
 		static void DeleteProducts()
 		{
@@ -222,22 +228,22 @@ namespace _2doParcialPL_Demo
 
 			Console.WriteLine("\nIngrese el ID del instrumento que desea eliminar:");
 
-			string elementtosearch = ValStr();
+			string search = ValStr();
 
 			for (int fi = 0; fi < instruments.GetLength(0); fi++)
 			{
 				for (int ci = 0; ci < instruments.GetLength(1); ci++)
 				{
-					if (instruments[fi, ci] == elementtosearch)
+					if (instruments[fi, ci] == search)
 					{
 						instruments[fi, 1] = null;
 						instruments[fi, 2] = null;
 						instruments[fi, 3] = null;
 
-						for (int fp = 0; fp < pricestock.GetLength(0); fp++)
+						for (int fp = 0; fp < priceStock.GetLength(0); fp++)
 						{
-							pricestock[fi, 0] = 0;
-							pricestock[fi, 1] = 0;
+							priceStock[fi, 0] = 0;
+							priceStock[fi, 1] = 0;
 						}
 					}
 				}
@@ -245,18 +251,23 @@ namespace _2doParcialPL_Demo
 			Console.Clear();
 			ListProducts();
 		}
+
 		/// <summary>
-		/// Resta unidades en stock
+		/// Resta una cantidad unidades establecidas por el usuario del stock.
 		/// </summary>
-		static void RegVenta()
+		static void RegSale()
 		{
 			string id;
 			int cant;
+
 			ListProducts();
+
 			Console.WriteLine("\nIngrese el ID del instrumento: ");
 			id = ValStr();
+
 			Console.WriteLine("Ingrese la cantidad de unidades vendidas: ");
 			cant = ValInt();
+
 			Console.Clear();
 
 			for (int fi = 0; fi < instruments.GetLength(0); fi++)
@@ -265,9 +276,9 @@ namespace _2doParcialPL_Demo
 				{
 					if (instruments[fi, ci] == id)
 					{
-						for (int cp = 1; cp < pricestock.GetLength(1); cp++)
+						for (int cp = 1; cp < priceStock.GetLength(1); cp++)
 						{
-							pricestock[fi, 1] = pricestock[fi, 1] - cant;
+							priceStock[fi, 1] = priceStock[fi, 1] - cant;
 						}
 					}
 				}
@@ -278,7 +289,7 @@ namespace _2doParcialPL_Demo
 		/// <summary>
 		/// Dibuja el Menu de Contabilidad 
 		/// </summary>
-		static void CalculatorMenu()
+		static void AccountingMenu()
 		{
 			Console.Clear();
 			Console.ForegroundColor = ConsoleColor.Cyan;
@@ -297,17 +308,17 @@ namespace _2doParcialPL_Demo
 		/// <summary>
 		/// Controla el Menu de Contabilidad.
 		/// </summary>
-		/// <returns> Retorna 'op'. Variable que indica que opciones en el Menu de Contabilidad.</returns>
+		/// <returns> Retorna 'opt'. Variable que indica que opciones en el Menu de Contabilidad.</returns>
 		static int ControlCalculator()
 		{
-			int op;
-			int.TryParse(Console.ReadLine(), out op);
+			int opt;
+			int.TryParse(Console.ReadLine(), out opt);
 
-			switch (op)
+			switch (opt)
 			{
 				case 1:
 					Console.Clear();
-					PreciosCost();
+					CostPrice();
 					break;
 				case 2:
 					Info();
@@ -322,17 +333,18 @@ namespace _2doParcialPL_Demo
 					Console.ReadKey();
 					break;
 			}
-			return op;
+			return opt;
 		}
+
 		/// <summary>
-		/// Dibuja la Lista de Productos con la lista de Costos.
+		/// Dibuja el listado de Productos con los precios mayoristas.
 		/// </summary>
-		static void PreciosCost()
+		static void CostPrice()
 		{
-			for (int c = 0; c < clasificacionInv.Length; c++)
+			for (int c = 0; c < hWholesaler.Length; c++)
 			{
 				Console.BackgroundColor = ConsoleColor.DarkGreen;
-				Console.Write($"|{clasificacionInv[c],-13}");
+				Console.Write($"|{hWholesaler[c],-13}");
 				Console.ResetColor();
 			}
 			Console.WriteLine();
@@ -343,57 +355,62 @@ namespace _2doParcialPL_Demo
 				{
 					Console.Write($"{instruments[fi, ci],-13}|");
 				}
-				for (int fp = 1; fp < pricestock.GetLength(1); fp++)
+				for (int fp = 1; fp < priceStock.GetLength(1); fp++)
 				{
-					Console.Write($"{pricestock[fi, 0] * 0.7,-18}|");
+					Console.Write($"{priceStock[fi, 0] * 0.7,-18}|");
 				}
 				Console.WriteLine();
 			}
 			Console.ReadKey();
 		}
+
 		/// <summary>
 		/// Da informacion sobre la contabilidad del negocio.
 		/// </summary>
-		static void Info()
+		static double[] Info()
 		{
-			int resSumIns = 0;
-			int resSumStk = 0;
-			double fac = 0;
-			double gan = 0;
-			double cos = 0;
+			totalBilling = new double[10];
+			int instSum = 0;
+			int stkSum = 0;
+			double billing = 0;
+			double prof = 0;
+			double cost = 0;
 
-			for (int i = 0; i < facArray.Length; i++)
+			for (int i = 0; i < totalBilling.Length; i++)
 			{
-				for (int fp = 0; fp < pricestock.GetLength(0); fp++)
+				for (int fp = 0; fp < priceStock.GetLength(0); fp++)
 				{
-					facArray[i] = pricestock[i, 0] * pricestock[i, 1];
+					totalBilling[i] = priceStock[i, 0] * priceStock[i, 1];
 					break;
 				}
 			}
 
-			fac = facArray.Sum();
+			billing = totalBilling.Sum();
 
-			for (int fp = 0; fp < pricestock.GetLength(0); fp++)
+			for (int fp = 0; fp < priceStock.GetLength(0); fp++)
 			{
-				resSumIns += pricestock[fp, 0];
-				resSumStk += pricestock[fp, 1];
-				cos = (fac) * 0.7;
-				gan = fac - cos;
+				instSum += priceStock[fp, 0];
+				stkSum += priceStock[fp, 1];
+				cost = (billing) * 0.7;
+				prof = billing - cost;
 			}
 
 			Console.BackgroundColor = ConsoleColor.DarkMagenta;
 			Console.WriteLine("\n\n La ganancia por cada instrumento es del +30%.");
-			Console.WriteLine($" Nro de instrumentos en deposito: {resSumStk}.");
-			Console.WriteLine($" Facturacion total estimada: ${fac}.");
-			Console.WriteLine($" Costo total: ${cos}.");
-			Console.WriteLine($" Ganancia total estimada: ${gan}.");
+			Console.WriteLine($" Nro de instrumentos en deposito: {stkSum}.");
+			Console.WriteLine($" Facturacion total estimada: ${billing}.");
+			Console.WriteLine($" Costo total: ${cost}.");
+			Console.WriteLine($" Ganancia total estimada: ${prof}.");
 			Console.ResetColor();
 			Console.ReadKey();
+
+			return totalBilling;
 		}
+
 		/// <summary>
-		/// Valida variables del tipo int..
+		/// Valida entradas del usuario del tipo int.
 		/// </summary>
-		/// <returns> Retorna 'num'. Variable del tipo int que funciona como auxiliar cuando valida un numero entero</returns>
+		/// <returns> Retorna 'num'. Variable del tipo int que funciona como auxiliar cuando valida un numero entero.</returns>
 		static int ValInt()
 		{
 			int num;
@@ -404,7 +421,7 @@ namespace _2doParcialPL_Demo
 			while (!conv)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
-				Console.WriteLine("Error!!! ingrese un dato valido:");
+				Console.WriteLine("Error!!! Ingrese un dato valido:");
 				Console.ResetColor();
 				conv = int.TryParse(Console.ReadLine().Trim(), out num);
 			}
@@ -421,9 +438,9 @@ namespace _2doParcialPL_Demo
 
 				while (val == "n")
 				{
-					Console.WriteLine("Vuelva a ingresar el dato:");
+					Console.WriteLine("Vuelva a Ingresar el dato:");
 					int.TryParse(Console.ReadLine().Trim(), out num);
-					Console.WriteLine($"ingreso '{num}' ¿es correcto? s/n");
+					Console.WriteLine($"Ingreso '{num}' ¿es correcto? s/n");
 					val = Console.ReadLine().Trim().ToLower();
 				}
 			}
@@ -436,8 +453,9 @@ namespace _2doParcialPL_Demo
 			}
 			return num;
 		}
+
 		/// <summary>
-		/// Valida variables del tipo string.
+		/// Valida entradas del usuario del tipo string.
 		/// </summary>
 		/// <returns> Retorna 'str'. Variable que funciona como auxiliar cuando validamos un dato del tipo string.</returns>
 		static string ValStr()
@@ -450,7 +468,7 @@ namespace _2doParcialPL_Demo
 			while (string.IsNullOrEmpty(str))
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
-				Console.WriteLine("Error!!! ingrese un dato valido:");
+				Console.WriteLine("Error!!! Ingrese un dato valido:");
 				Console.ResetColor();
 				str = Console.ReadLine().Trim();
 			}
@@ -469,7 +487,7 @@ namespace _2doParcialPL_Demo
 				{
 					Console.WriteLine("Vuelva a ingresar el dato:");
 					str = Console.ReadLine().Trim();
-					Console.WriteLine($"ingreso '{str}' ¿es correcto? s/n");
+					Console.WriteLine($"Ingreso '{str}' ¿es correcto? s/n");
 					val = Console.ReadLine().Trim().ToLower();
 				}
 			}
@@ -480,35 +498,35 @@ namespace _2doParcialPL_Demo
 				Console.ResetColor();
 				Console.ReadKey();
 			}
-
 			return str;
 		}
+
 		/// <summary>
-		/// Toma como parametro la variable de 'op' de las funciones de control.
 		/// Valida la salida del programa.
 		/// </summary>
-		/// <param name="op"></param>
-		/// <returns></returns>
-		static int Exit(int op)
+		/// <param name="opt"></param>
+		/// <returns> Retorna 'opt'. Variable que utiliza ControlApp() para ejecutar la salida del programa. </returns>
+		static int Exit(int opt)
 		{
 			string val;
 			Console.WriteLine("¿Esta seguro que desea salir? s/n");
 			val = Console.ReadLine().Trim().ToLower();
 			if (val == "s")
 			{
-				op = 9;
+				opt = 9;
 			}
 			if (val == "n")
 			{
-				op = 0;
+				opt = 0;
 			}
-			return op;
+			return opt;
 		}
+
 		/// <summary>
-		/// Carga la lista de Instrumentos desde el arranque del programa.
+		/// Carga el listado de Productos desde el arranque del programa.
 		/// </summary>
-		/// <returns> Retorna 'aux'. Variable auxiliar que llena la matriz "instruments" </returns>
-		static string[,] CargarInstruments()
+		/// <returns> Retorna 'aux'. Variable auxiliar que llena la matriz "instruments". </returns>
+		static string[,] LoadInstruments()
 		{
 			string[,] aux = new string[10, 4]
 			{
@@ -525,11 +543,12 @@ namespace _2doParcialPL_Demo
 			};
 			return aux;
 		}
+
 		/// <summary>
-		/// Carga la lista de precios de lista y stock desde el arranque del programa.
+		/// Carga el listado de precios minoristas y stock desde el arranque del programa.
 		/// </summary>
-		/// <returns> Retorna 'aux'. Variable auxiliar que llena la matriz "pricestock" </returns>
-		static int[,] CargarPreciosStock()
+		/// <returns> Retorna 'aux'. Variable auxiliar que llena la matriz "priceStock" </returns>
+		static int[,] LoadPriceStock()
 		{
 			int[,] aux = new int[10, 2]
 			{
@@ -546,26 +565,25 @@ namespace _2doParcialPL_Demo
 			};
 			return aux;
 		}
+
 		/// <summary>
-		/// Carga el encabezado de la lista de productos con precio de lista.
+		/// Carga el encabezado del listado de productos con precios minoristas.
 		/// </summary>
-		/// <returns>Retorna 'aux'. Variable auxiliar que llena el array de "clasificacion". </returns>
-		static string[] CargarClas()
+		/// <returns>Retorna 'aux'. Variable auxiliar que llena el array de "hRetailer". </returns>
+		static string[] LoadHeaderRetailer()
 		{
 			string[] aux = { "Id", "Marca", "Modelo", "SubModelo", "Precio Lista", "Stock" };
 			return aux;
 		}
+
 		/// <summary>
 		/// Carga el encabezado de la lista de productos con precio de costo.
 		/// </summary>
-		/// <returns>Retorna 'aux'. Variable auxiliar que llena el array de "clasificacionInv". </returns>
-		static string[] CargarClasInv()
+		/// <returns>Retorna 'aux'. Variable auxiliar que llena el array de "hWholesaler". </returns>
+		static string[] LoadHeaderWholesaler()
 		{
 			string[] aux = { "Id", "Marca", "Modelo", "SubModelo", "Costo" };
 			return aux;
 		}
 	}
 }
-
-
-
